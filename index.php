@@ -42,6 +42,16 @@
 
     $keys = array_keys($hotels[0]);
 
+    $with_parking = $_GET['with_parking'];
+
+    $hotelsWithParking = [];
+
+    foreach ($hotels as $currentHotel) {
+        if ($currentHotel['Parking'] === true) {
+            array_push($hotelsWithParking, $currentHotel);
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +66,19 @@
 </head>
 <body class="d-flex flex-column align-items-center">
     <h1 class="my-2">Hotel php</h1>
+
+    <form method="GET" id="my_form">
+        <div class="mb-3 my_txt">
+            <div class="form-check">
+            <input name="with_parking" class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" <?php if (isset($_GET['with_parking'])) echo "checked"; ?>>
+                <label class="form-check-label" for="flexCheckDefault">
+                    Parking
+                </label>
+            </div>
+        </div>
+
+        <input id="submit" type="submit">
+    </form>
 
     <table class="table w-75 border border-secondary my-3">
         <thead>
@@ -86,5 +109,12 @@
             ?>
         </tbody>
     </table>
+    <?php
+    // Controllo se $with_parking è uguale a true
+    if ($_GET['with_parking'] === 'true') {
+        // Qui scrivi ciò che vuoi mostrare solo se $with_parking è true
+        echo "<p>Testo da visualizzare solo se \$with_parking è true.</p>";
+    }
+?>
 </body>
 </html>
